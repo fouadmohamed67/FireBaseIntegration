@@ -7,24 +7,20 @@ import { User } from '../userInterface'
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-
 export class HeaderComponent {  
   user!:User
-    constructor(private router:Router,public authService:AuthService){
-    
-    }   
+    constructor(private router:Router,public authService:AuthService){}   
   ngOnInit(){
     try {
       this.authService.isLoggedIn().subscribe((user:any)=>{ 
         if(user)
         {
-         this.user=user._delegate  
+         this.user=user._delegate;
         }
        })
 
     } catch (error) {
-      console.log("error in ngOnInit method at HeaderComponent")
-
+      console.log("error in ngOnInit method at HeaderComponent");
     }
   }
   goHome(){

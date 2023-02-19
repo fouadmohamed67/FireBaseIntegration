@@ -7,26 +7,28 @@ import { Observable } from '@firebase/util';
   providedIn: 'root'
 })
 export class AuthService {   
-  constructor( public angularfireAuth: AngularFireAuth,private router:Router){  
-  } 
+  constructor( public angularfireAuth: AngularFireAuth,private router:Router){}
+
   isLoggedIn(): Observable<any>|any{ 
         return  this.angularfireAuth.user
-  } 
+  }
+
   GoogleAuth(){
     //pass google provider to authLogin
     return this.AuthLogin(new GoogleAuthProvider())
     .then(()=>{
-      this.router.navigate([''])
+      this.router.navigate(['']);
     })
     .catch((error=>{
-      console.log("error in GoogleAuth method authService "+error)
+      console.log("error in GoogleAuth method authService " + error);
     }));
-  }  
+  }
+
   async AuthLogin(provider:GoogleAuthProvider) {
       return await this.angularfireAuth
       .signInWithPopup(provider)
       .catch((error) => {
-        console.log("error in AuthLogin method authService "+error)
+        console.log("error in AuthLogin method authService " + error);
       });
   }
 
@@ -37,7 +39,7 @@ export class AuthService {
       window.location.reload()
     })
     .catch((error)=>{
-      console.log("error in AuthLogOut method authService "+ error)
+      console.log("error in AuthLogOut method authService " + error)
     })
   }
 

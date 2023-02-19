@@ -9,21 +9,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+
   errorMessage!:string
   form: FormGroup;
+  submited!:boolean
+
   constructor(public authService: AuthService,private ngFireAuth:AngularFireAuth,private router : Router) {
     this.form = new FormGroup({
       email: new FormControl('',[Validators.required,Validators.email]),
       password: new FormControl('',[Validators.required,Validators.minLength(6)])
     });
   } 
+
   signIn(form:FormGroup){ 
-     this.ngFireAuth.signInWithEmailAndPassword (form.value.email,form.value.password)
-    .then(res=>{
-      this.router.navigate([''])
-    })
-    .catch(error=>{
-      this.errorMessage=error.message 
-    })
+    this.submited=true
+     if(this.form.valid)
+     {
+      this.ngFireAuth.signInWithEmailAndPassword (form.value.email,form.value.password)
+      .then(()=>{
+        this.router.navigate(['']);
+      })
+      .catch(error=>{
+        this.submited=false;
+        this.errorMessage=this.getErrorMessage(error.message) as unknown  as string; 
+      })
+     }
   }
+  getErrorMessage(message:string){
+    const cutedMessage=message.slice(message.indexOf(':')+1,message.indexOf('.'));
+    return cutedMessage;
+   }
 }

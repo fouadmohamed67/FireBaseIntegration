@@ -1,6 +1,4 @@
-export interface User{
-  
-  
+export interface User{ 
     accessToken: string,
     displayName :string,
     email:string,

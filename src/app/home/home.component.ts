@@ -18,19 +18,18 @@ export class HomeComponent {
     this.authService.isLoggedIn().subscribe((user:any)=>{ 
       if(user)
       {
-       this.user=user._delegate 
-       this.getOldContent()
+       this.user=user._delegate;
+       this.getOldContent();
       } 
      })
   }
-  ngOnInIt(){}
+  
   submitContent(){
-    const  content=document.querySelector('#froala-editor p')?.innerHTML
-    console.log(content)
+    const  content=document.querySelector('#froala-editor p')?.innerHTML 
     this.ngFireDatabase.database.ref("contents/").update({
       publisher:this.user.uid,
       content:content, 
-    })
+    });
    }
   getOldContent(){
     try {
