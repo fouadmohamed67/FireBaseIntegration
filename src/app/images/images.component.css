@@ -1,3 +1,16 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    margin: 3rem auto;
+}
+.form-control{
+    background-color: #646a70;
+    padding: 1rem;
+    color: white;
+    margin: 1rem;
+}
 .main
 {
     display: flex;
@@ -20,3 +33,5 @@
     border: 2px solid #000;
     margin: 1rem ;
  }
+ 
+ 

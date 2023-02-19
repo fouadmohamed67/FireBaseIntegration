@@ -11,25 +11,38 @@ import { User } from '../userInterface'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
-  content = new FormControl('');
+  oldContent:any|"aaa"
   user!:User
+  test="Sss"
   constructor(private router:Router,private ngFireDatabase:AngularFireDatabase,private authService:AuthService){
     this.authService.isLoggedIn().subscribe((user:any)=>{ 
       if(user)
       {
        this.user=user._delegate 
+       this.getOldContent()
       } 
      })
   }
+  ngOnInIt(){}
   submitContent(){
-      
-    this.ngFireDatabase.database.ref("contents/").push({
+    const  content=document.querySelector('#froala-editor p')?.innerHTML
+    console.log(content)
+    this.ngFireDatabase.database.ref("contents/").update({
       publisher:this.user.uid,
-      content:this.content.value, 
+      content:content, 
     })
-    this.router.navigate(['contents'])  
-
+   }
+  getOldContent(){
+    try {
+        if(this.user)
+        {
+          this.ngFireDatabase.list('contents/').valueChanges().subscribe(async(data)=>{
+             this.oldContent=data[0];  
+          });
+        }
+    } catch (error) {
+        console.log("error in getAllContents method at ContentsComponent")
+    }
   }
 
 }

@@ -1,11 +1,11 @@
 <div  class="main rounded px-8 pt-6 pb-8 mb-4   border border-sky-900 lg:w-2/4 sm:w-full" > 
     <div class="mb-4 flex  flex-col items-start">
         <label for="title">image title</label>
-        <input [disabled]="loading" [formControl]="title" type="text" class=" shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
+        <input [disabled]="loading" [formControl]="title" [(ngModel)]="clearing" type="text" class=" shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"/>
       </div>
     <div class="mb-4 flex  flex-col items-start">
         <label  for="image">file image</label>
-        <input [disabled]="loading" (change)="onFileChange($event)" type="file" accept=".png , .jpg , .JPEG " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> 
+        <input [disabled]="loading" (change)="onFileChange($event)" [(ngModel)]="clearing" type="file" accept=".png , .jpg , .JPEG " class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"> 
     </div>
     <div class="flex flex-row">
         <button [disabled]="loading" (click)="uploadImage()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >uploadImage</button>
@@ -18,4 +18,22 @@
         </div>
     </div>
 </div>
- 
+<div class="main">
+    <div class="header">
+        <h1>your Uploaded Images</h1>
+    </div>
+    <div class="body my-4 "> 
+        <div *ngFor="let item of imagesInfo ;let i = index" class=" w-80 border  bg-gray-800  border-gray-700 mx-6 my-6">
+            <div class="h-1/2">
+                <img class="h-full w-full" src="{{item.photoUrl}}"/>
+            </div>
+            <div class="p-5"> 
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{item.title}}<br>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{item.date}}</p>
+                <button (click)="deleteImage(i)"  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                   delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

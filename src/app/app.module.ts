@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { SocialLoginModule } from '@abacritt/angularx-social-login'; 
-import { UploadImagesComponent } from './upload-images/upload-images.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SocialLoginModule } from '@abacritt/angularx-social-login';  
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component'; 
 import { AuthGuard } from './auth.guard'; 
@@ -11,20 +10,20 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { AngularFireModule } from '@angular/fire/compat'; 
 import { AngularFireStorageModule } from '@angular/fire/compat/storage'; 
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import { ContentsComponent } from './contents/contents.component';
-import { ShowImagesComponent } from './show-images/show-images.component';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg'; 
+import { ImagesComponent } from './images/images.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 @NgModule({
   declarations: [
-    AppComponent,
-    UploadImagesComponent,
-    ShowImagesComponent,
+    AppComponent, 
     LoginComponent, 
     HomeComponent,
     HeaderComponent,
-    ContentsComponent
+    ImagesComponent,
+    SignUpComponent
   ],
   imports: [
+    FormsModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
     AngularFireStorageModule,
@@ -47,24 +46,18 @@ import { ShowImagesComponent } from './show-images/show-images.component';
         component:LoginComponent
       },
       {
-        path:'contents',
-        component:ContentsComponent,
-        canActivate:[AuthGuard]
-      },
-      {
         path:'',
         component:HomeComponent,
         canActivate:[AuthGuard]
       },
       {
-        path:'UploadImages',
-        component:UploadImagesComponent,
+        path:'Images',
+        component:ImagesComponent,
         canActivate:[AuthGuard]
-      },
+      }, 
       {
-        path:'ShowImages',
-        component:ShowImagesComponent,
-        canActivate:[AuthGuard]
+        path:'signUp',
+        component:SignUpComponent
       }
     ])
   ],

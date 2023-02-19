@@ -18,7 +18,7 @@ export class HeaderComponent {
       this.authService.isLoggedIn().subscribe((user:any)=>{ 
         if(user)
         {
-         this.user=user._delegate 
+         this.user=user._delegate  
         }
        })
 
