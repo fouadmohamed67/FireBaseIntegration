@@ -9,7 +9,7 @@ import { User } from './userInterface'
  
 export class AppComponent {
 
-  title = 'task_1';  
+  title = 'Iqra task';  
   user!:User
   constructor(private authService:AuthService){}
   ngOnInit(){

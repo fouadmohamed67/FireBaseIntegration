@@ -1,12 +1,7 @@
 .home{
     margin: 3rem;
 }
-ul li{
-    list-style: none;
-}
-.features{
-    font-size: large;
-}
+ 
 .method :hover{
     cursor: pointer;
 }

@@ -5,21 +5,27 @@
         <div class="md:w-4/12 lg:w-4/12  ">
           <form [formGroup]="form" (ngSubmit)="signUp(form)">
             <!-- email -->
-            <div class="mb-6">
+            <div class="my-6">
               <input
-              formControlName="email"
-                type="text"
+                formControlName="email"
+                type="email"
+                
                 class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                placeholder="Email"
-              />
+                placeholder="email"/>
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" *ngIf="form.controls['email'].invalid">enter valid email format</div> 
+                <div *ngIf="errorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"  >{{errorMessage}}</div>
             </div>
+             
             <!-- Password-->
-            <div class="mb-6">
+            <div class="my-6">
               <input
-              formControlName="password"
-                type="password"
+                formControlName="password"
+                type="password" 
                 class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                placeholder="Password"/></div> 
+                placeholder="Password"/>
+              <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" *ngIf="form.controls['password'].hasError('minlength') || form.controls['password'].hasError('required') ">epassword should be more than 6 letters</div>
+  
+            </div> 
             <!-- Submit button -->
             <button
               type="submit"
