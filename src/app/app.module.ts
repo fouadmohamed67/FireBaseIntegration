@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SocialLoginModule } from '@abacritt/angularx-social-login'; 
 import { UploadImagesComponent } from './upload-images/upload-images.component'
 import { RouterModule } from '@angular/router';
-import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { LoginComponent } from './login/login.component'; 
 import { AuthGuard } from './auth.guard'; 
 import { HomeComponent } from './home/home.component'; 
@@ -67,8 +66,6 @@ import { ShowImagesComponent } from './show-images/show-images.component';
         component:ShowImagesComponent,
         canActivate:[AuthGuard]
       }
-
-       
     ])
   ],
   providers: [

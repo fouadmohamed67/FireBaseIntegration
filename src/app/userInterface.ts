@@ -1,10 +1,10 @@
 export interface User{
-    email: string,
-    firstName :string,
-    id:string,
-    idToken:string,
-    lastName:string,
-    name:string,
-    photoUrl:string,
-    provider:string
+  
+  
+    accessToken: string,
+    displayName :string,
+    email:string,
+    photoURL:string,
+    providerId:string,
+    uid:string
   }

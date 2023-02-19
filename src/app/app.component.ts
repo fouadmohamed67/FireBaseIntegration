@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';  
 import { AuthService } from './services/auth.service';
+import { User } from './userInterface'
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +10,7 @@ import { AuthService } from './services/auth.service';
 export class AppComponent {
 
   title = 'task_1';  
-  user:any
+  user!:User
   constructor(private authService:AuthService){}
   ngOnInit(){
     this.authService.isLoggedIn().subscribe((user:any)=>{ 

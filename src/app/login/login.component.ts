@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-   
- 
-  constructor(public authService: AuthService) {}
-  ngOnInit() {}  
+  constructor(public authService: AuthService) {} 
  
 }

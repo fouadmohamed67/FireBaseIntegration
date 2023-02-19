@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { User } from '../userInterface'
 
 @Component({
   selector: 'app-contents',
@@ -11,24 +11,26 @@ import { AuthService } from '../services/auth.service';
 })
 export class ContentsComponent {
   contents:any
-  user:any
+  user!:User
   innerContent:any
   content = new FormControl('');
-  constructor(private router:Router,private ngFireDatabase:AngularFireDatabase,private authService:AuthService){
+  constructor(private ngFireDatabase:AngularFireDatabase,private authService:AuthService){
     
   }
    ngOnInit(){ 
-    this.innerContent="chose content to view"
-    this.authService.isLoggedIn().subscribe((user:any)=>{ 
-      if(user)
-      {
-       this.user=user._delegate
-       this.getAllContents();
-      }  
-     }) 
+    try {
+      this.innerContent="chose content to view"
+      this.authService.isLoggedIn().subscribe((user:any)=>{ 
+        if(user)
+        {
+        this.user=user._delegate
+        this.getAllContents();
+        }  
+      })
+    } catch (error) {
+      console.log("error in ngOnInit method at ContentsComponent")
+    } 
   }
-   
-
   getAllContents(){
     try {
         if(this.user)
@@ -46,12 +48,12 @@ export class ContentsComponent {
         console.log("error in getAllContents method at ContentsComponent")
     }
   }
-
-  editContent(){
-
-  }
   renderContent(index:any){
-    this.innerContent  =this.contents[index].content  
+    try {
+      this.innerContent  =this.contents[index].content 
+    } catch (error) {
+      console.log("error in renderContent method at ContentsComponent")
+    } 
     
   }
 }

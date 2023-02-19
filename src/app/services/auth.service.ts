@@ -15,7 +15,7 @@ export class AuthService {
   GoogleAuth(){
     //pass google provider to authLogin
     return this.AuthLogin(new GoogleAuthProvider())
-    .then(result=>{
+    .then(()=>{
       this.router.navigate([''])
     })
     .catch((error=>{
@@ -25,8 +25,6 @@ export class AuthService {
   async AuthLogin(provider:GoogleAuthProvider) {
       return await this.angularfireAuth
       .signInWithPopup(provider)
-      .then((result) => {   
-      })
       .catch((error) => {
         console.log("error in AuthLogin method authService "+error)
       });
@@ -35,9 +33,8 @@ export class AuthService {
   async AuthLogOut(){
     return await this.angularfireAuth
     .signOut()
-    .then((result)=>{
+    .then(()=>{
       window.location.reload()
-       
     })
     .catch((error)=>{
       console.log("error in AuthLogOut method authService "+ error)
