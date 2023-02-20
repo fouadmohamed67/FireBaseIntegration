@@ -2,7 +2,7 @@
 
 This project was generated with Angular CLI
 # Deploymeny
-the project is deployed using fireBase Hosting url: "https://task1-8dd72.web.app/login"
+the project is deployed using fireBase Hosting url: https://task1-8dd72.web.app/login
 # features
 1. authentication and authorization
 2. sign Up with google (fireBase) by email/password  or  google account
