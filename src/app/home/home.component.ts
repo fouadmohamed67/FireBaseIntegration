@@ -25,7 +25,7 @@ export class HomeComponent {
   }
   
   submitContent(){
-    const  content=document.querySelector('#froala-editor p')?.innerHTML 
+    const  content=document.querySelector('#froala-editor')?.querySelector('#froala-viewer')?.innerHTML || document.querySelector('#froala-editor p')?.innerHTML
     this.ngFireDatabase.database.ref("contents/").update({
       publisher:this.user.uid,
       content:content, 

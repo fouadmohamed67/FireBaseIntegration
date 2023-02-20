@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../userInterface'
@@ -16,17 +16,17 @@ interface Data{
   styleUrls: ['./images.component.css']
 })
 export class ImagesComponent {
-  clearing:any
-  keys:any
+  submited=false
+  clearingInputText=''
+  clearingInputFile=null
+  ImageskeysId:any
   imagesInfo!:Array<Data> |any
-  loading!:boolean
+  loading=false
   user!:User
-  path!:string
-  imageUrl!:string
+  path!:string 
   file:any
-  title = new FormControl(''); 
-  constructor( private router:Router,private authService:AuthService,private ngFireDatabase:AngularFireDatabase, private ngFireStorage:AngularFireStorage ){ 
-    
+  title = new FormControl('',Validators.required); 
+  constructor( private router:Router,private authService:AuthService,private ngFireDatabase:AngularFireDatabase, private ngFireStorage:AngularFireStorage ){
   }
   async ngOnInit(){  
     await this.authService.isLoggedIn().subscribe((user:any)=>{ 
@@ -44,7 +44,7 @@ export class ImagesComponent {
          this.ngFireDatabase.list('images/'+folderName).valueChanges().subscribe(async(data:any)=>{  
            this.imagesInfo= data; 
            this.ngFireDatabase.list('images/'+folderName).snapshotChanges().subscribe(async(keys:any)=>{
-           this.keys=keys   
+           this.ImageskeysId=keys   
            })
          });   
        } catch (error) {
@@ -55,36 +55,39 @@ export class ImagesComponent {
    deleteImage(index:number)
    {
      const folderName=this.user.uid  
-     this.ngFireDatabase.database.ref().child('images/'+folderName+'/'+this.keys[index].key+'/').remove()
+     this.ngFireDatabase.database.ref().child('images/'+folderName+'/'+this.ImageskeysId[index].key+'/').remove()
    }
    async uploadImage(){  
-    if(!this.title.value || !this.file )
+    this.submited=true
+    if(this.title.value && this.file)
     {
-      alert("put title and select image")
-    }
-    else
-    {
-      try {
+     
+      const validatedTitle=this.title.value
+       try {
         const folderName=this.user.uid  
         this.loading=true
         const currentDate = new Date().toLocaleString("en-US", {timeZone: 'Africa/Cairo'})
         //const ksaData=new Date(currentDate).toLocaleString("en-US", {timeZone: 'Asia/Riyadh'}) 
         const UploadTask =await (await this.ngFireStorage.upload(folderName+"/"+this.path,this.path)).ref.put(this.file) 
           UploadTask.task.snapshot.ref.getDownloadURL().then(url=>{
-            this.ngFireDatabase.database.ref("images/"+ this.user.uid+ "/").push({
-              title:this.title.value,
+            var storedObjectToFireBase={
+              title:validatedTitle,
               date:currentDate,
               photoUrl:url 
-            })    
+            }
+            this.ngFireDatabase.database.ref("images/"+ this.user.uid+ "/").push(storedObjectToFireBase)    
           })
+          //to stop loading div and empty all input fields
           this.loading=false
-          this.clearing=''
+          this.clearingInputText=''
+          this.clearingInputFile=null
         this.router.navigate(['Images']) 
       } catch (error) {
         console.log("error in uploadImage method at UploadImagesComponent")
       }
+      this.submited=false
+      
     }  
-     
   }
   onFileChange($event:any){
     this.file=$event.target.files[0]
