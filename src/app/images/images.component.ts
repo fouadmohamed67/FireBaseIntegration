@@ -16,7 +16,7 @@ interface Data{
   styleUrls: ['./images.component.css']
 })
 export class ImagesComponent {
-  flashMessage=false
+  flashMessageSave=false
   submited=false
   clearingInputText=''
   clearingInputFile=null
@@ -81,9 +81,9 @@ export class ImagesComponent {
           this.loading=false
           this.clearingInputText=''
           this.clearingInputFile=null;
-          this.flashMessage=true;
+          this.flashMessageSave=true;
           setTimeout(()=>{
-            this.flashMessage=false
+            this.flashMessageSave=false
           },3000) 
         this.router.navigate(['Images']) 
       } catch (error) {
