@@ -13,6 +13,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg'; 
 import { ImagesComponent } from './images/images.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+
 @NgModule({
   declarations: [
     AppComponent, 

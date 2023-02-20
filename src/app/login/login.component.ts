@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth'; 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { StringServiceService } from '../services/string-service.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +15,7 @@ export class LoginComponent {
   form: FormGroup;
   submited!:boolean
 
-  constructor(public authService: AuthService,private ngFireAuth:AngularFireAuth,private router : Router) {
+  constructor(public authService: AuthService,private ngFireAuth:AngularFireAuth,private router : Router,private strService:StringServiceService) {
     this.form = new FormGroup({
       email: new FormControl('',[Validators.required,Validators.email]),
       password: new FormControl('',[Validators.required,Validators.minLength(6)])
@@ -31,12 +32,9 @@ export class LoginComponent {
       })
       .catch(error=>{
         this.submited=false;
-        this.errorMessage=this.getErrorMessage(error.message) as unknown  as string; 
+        this.errorMessage=this.strService.getErrorMessage(error.message) as unknown  as string; 
       })
      }
   }
-  getErrorMessage(message:string){
-    const cutedMessage=message.slice(message.indexOf(':')+1,message.indexOf('.'));
-    return cutedMessage;
-   }
+  
 }

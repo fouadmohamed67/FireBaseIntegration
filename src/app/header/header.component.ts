@@ -18,13 +18,9 @@ export class HeaderComponent {
          this.user=user._delegate;
         }
        })
-
     } catch (error) {
       console.log("error in ngOnInit method at HeaderComponent");
     }
-  }
-  goHome(){
-    this.router.navigate(['']);
-  }
+  } 
   
 }

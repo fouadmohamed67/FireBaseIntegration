@@ -10,7 +10,7 @@ export class AuthService {
   constructor( public angularfireAuth: AngularFireAuth,private router:Router){}
 
   isLoggedIn(): Observable<any>|any{ 
-        return  this.angularfireAuth.user
+        return  this.angularfireAuth.user;
   }
 
   GoogleAuth(){

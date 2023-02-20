@@ -16,6 +16,7 @@ interface Data{
   styleUrls: ['./images.component.css']
 })
 export class ImagesComponent {
+  flashMessage=false
   submited=false
   clearingInputText=''
   clearingInputFile=null
@@ -61,7 +62,6 @@ export class ImagesComponent {
     this.submited=true
     if(this.title.value && this.file)
     {
-     
       const validatedTitle=this.title.value
        try {
         const folderName=this.user.uid  
@@ -80,7 +80,11 @@ export class ImagesComponent {
           //to stop loading div and empty all input fields
           this.loading=false
           this.clearingInputText=''
-          this.clearingInputFile=null
+          this.clearingInputFile=null;
+          this.flashMessage=true;
+          setTimeout(()=>{
+            this.flashMessage=false
+          },3000) 
         this.router.navigate(['Images']) 
       } catch (error) {
         console.log("error in uploadImage method at UploadImagesComponent")

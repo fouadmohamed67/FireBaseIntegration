@@ -27,6 +27,7 @@
     "angularx-social-login": "^4.1.0",
     "bootstrap": "^5.2.3",
     "firebase": "^9.17.1",
+    "flash-messages-angular": "^4.0.1",
     "flowbite": "^1.6.3",
     "google": "^0.6.0",
     "lint": "^0.8.19",
